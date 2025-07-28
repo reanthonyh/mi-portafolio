@@ -5,7 +5,7 @@ import 'package:my_portfolio/core/constants/assets.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
 import 'package:my_portfolio/feautres/root/presentation/providers/root_state.dart';
 
-class RootPage extends ConsumerWidget {
+final class RootPage extends ConsumerWidget {
   const RootPage(this.child, {super.key});
 
   final Widget child;
@@ -48,13 +48,6 @@ class RootPage extends ConsumerWidget {
           ),
           Expanded(child: child),
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          ref.watch(rootStateProvider.notifier).changeIndex(1);
-          context.go('/aboutMe');
-        },
-        label: const Icon(Icons.keyboard_arrow_down_rounded),
       ),
     );
   }
