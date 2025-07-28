@@ -1,0 +1,23 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    unused_element: ignore
+    depend_on_referenced_packages: ignore
+
+  plugins:
+    - custom_lint
+
+code-style:
+  format: true
+
+formatter:
+  page_width: 90
+  trailing_commas: automate
+
+linter:
+  rules:
+    prefer_asserts_with_message: true
+    prefer_single_quotes: true
+    camel_case_types: true
+    prefer_const_constructors: true
