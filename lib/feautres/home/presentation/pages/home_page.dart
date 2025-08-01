@@ -9,8 +9,6 @@ final class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorScheme = ColorScheme.of(context);
-
     final textTheme = TextTheme.of(context);
 
     return Scaffold(
