@@ -9,6 +9,7 @@ abstract class Work with _$Work {
     required String title,
     required String description,
     required DateTime startDate,
-    required DateTime? endDate,
+    DateTime? endDate,
+    required String companyName,
   }) = _Work;
 }

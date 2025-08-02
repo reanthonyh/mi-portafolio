@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'main_router.dart';
+part of 'works_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mainRouterHash() => r'9258f06cc15d69f3e4548e52fd796d3d9c113d7c';
+String _$worksHash() => r'9467ca1e5c2e56bb92711d4c0b49a778a0052480';
 
-/// See also [mainRouter].
-@ProviderFor(mainRouter)
-final mainRouterProvider = AutoDisposeProvider<GoRouter>.internal(
-  mainRouter,
-  name: r'mainRouterProvider',
+/// See also [works].
+@ProviderFor(works)
+final worksProvider = AutoDisposeProvider<List<Work>>.internal(
+  works,
+  name: r'worksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$mainRouterHash,
+      : _$worksHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef MainRouterRef = AutoDisposeProviderRef<GoRouter>;
+typedef WorksRef = AutoDisposeProviderRef<List<Work>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

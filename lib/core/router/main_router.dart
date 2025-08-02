@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/feautres/about_me/presentation/pages/about_me_page.dart';
 import 'package:my_portfolio/feautres/home/presentation/pages/home_page.dart';
 import 'package:my_portfolio/feautres/root/presentation/pages/root_page.dart';
+import 'package:my_portfolio/feautres/work/presentation/page/work_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'main_router.g.dart';
@@ -17,7 +18,16 @@ GoRouter mainRouter(Ref ref) {
         pageBuilder: RootPage.goPageBuilder,
         routes: [
           GoRoute(path: '/', builder: (context, state) => const HomePage()),
-          GoRoute(path: '/aboutMe', builder: (context, state) => const AboutMePage()),
+          GoRoute(
+            path: '/aboutMe',
+            builder: (context, state) => const AboutMePage(),
+            routes: [
+              GoRoute(
+                path: '/:id',
+                builder: (context, state) => WorkPage(workId: state.pathParameters['id']),
+              ),
+            ],
+          ),
         ],
       ),
     ],

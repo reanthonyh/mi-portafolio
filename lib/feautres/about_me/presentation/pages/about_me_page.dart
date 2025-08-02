@@ -1,18 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
+import 'package:my_portfolio/feautres/work/providers/works_provider.dart';
 
-final class AboutMePage extends ConsumerStatefulWidget {
+final class AboutMePage extends ConsumerWidget {
   const AboutMePage({super.key});
 
   @override
-  ConsumerState<AboutMePage> createState() => _AboutMePageState();
-}
-
-class _AboutMePageState extends ConsumerState<AboutMePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Column(
         spacing: 8,
@@ -33,9 +30,7 @@ class _AboutMePageState extends ConsumerState<AboutMePage> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: FilledButton.tonal(
-                      onPressed: () {
-                        // TODO: Complete
-                      },
+                      onPressed: () {},
                       child: const Text("Ver mas ..."),
                     ),
                   ),
@@ -43,7 +38,6 @@ class _AboutMePageState extends ConsumerState<AboutMePage> {
               ),
             ),
           ),
-
           const Flexible(flex: 4, child: _WorkCards()),
         ],
       ),
@@ -51,20 +45,21 @@ class _AboutMePageState extends ConsumerState<AboutMePage> {
   }
 }
 
-class _WorkCards extends StatefulWidget {
+class _WorkCards extends ConsumerStatefulWidget {
   const _WorkCards();
 
   @override
-  State<_WorkCards> createState() => _WorkCardsState();
+  ConsumerState<_WorkCards> createState() => _WorkCardsState();
 }
 
-class _WorkCardsState extends State<_WorkCards> {
+class _WorkCardsState extends ConsumerState<_WorkCards> {
   late final _cardsScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ColorScheme.of(context);
-    final textTheme = TextTheme.of(context);
+    final works = ref.watch(worksProvider);
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scrollbar(
       interactive: true,
@@ -86,21 +81,54 @@ class _WorkCardsState extends State<_WorkCards> {
             crossAxisCount: 2,
             childAspectRatio: 1,
           ),
-          itemCount: 20,
+          itemCount: works.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return Card(
-              surfaceTintColor: colorScheme.tertiaryContainer,
-              child: Center(
-                child: Text(
-                  'Work $index',
-                  style: textTheme.labelLarge?.copyWith(
-                    color: colorScheme.onTertiaryContainer,
+            return _HoverCard(
+              onTap: () => context.go('/aboutMe/${works.elementAt(index).id}'),
+              child: Card(
+                surfaceTintColor: colorScheme.tertiaryContainer,
+                child: Center(
+                  child: Text(
+                    works[index].title,
+                    style: textTheme.labelLarge?.copyWith(
+                      color: colorScheme.onTertiaryContainer,
+                    ),
                   ),
                 ),
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _HoverCard extends StatefulWidget {
+  const _HoverCard({required this.child, required this.onTap});
+
+  final Widget child;
+  final VoidCallback onTap;
+
+  @override
+  State<_HoverCard> createState() => _HoverCardState();
+}
+
+class _HoverCardState extends State<_HoverCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _isHovered ? 1.05 : 1.0,
+          duration: const Duration(milliseconds: 200),
+          child: widget.child,
         ),
       ),
     );

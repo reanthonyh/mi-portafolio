@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Work {
 
- String? get id; String get title; String get description; DateTime get startDate; DateTime? get endDate;
+ String? get id; String get title; String get description; DateTime get startDate; DateTime? get endDate; String get companyName;
 /// Create a copy of Work
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $WorkCopyWith<Work> get copyWith => _$WorkCopyWithImpl<Work>(this as Work, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Work&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Work&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.companyName, companyName) || other.companyName == companyName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,startDate,endDate);
+int get hashCode => Object.hash(runtimeType,id,title,description,startDate,endDate,companyName);
 
 @override
 String toString() {
-  return 'Work(id: $id, title: $title, description: $description, startDate: $startDate, endDate: $endDate)';
+  return 'Work(id: $id, title: $title, description: $description, startDate: $startDate, endDate: $endDate, companyName: $companyName)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $WorkCopyWith<$Res>  {
   factory $WorkCopyWith(Work value, $Res Function(Work) _then) = _$WorkCopyWithImpl;
 @useResult
 $Res call({
- String? id, String title, String description, DateTime startDate, DateTime? endDate
+ String? id, String title, String description, DateTime startDate, DateTime? endDate, String companyName
 });
 
 
@@ -62,14 +62,15 @@ class _$WorkCopyWithImpl<$Res>
 
 /// Create a copy of Work
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = null,Object? description = null,Object? startDate = null,Object? endDate = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = null,Object? description = null,Object? startDate = null,Object? endDate = freezed,Object? companyName = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,companyName: null == companyName ? _self.companyName : companyName // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -154,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String title,  String description,  DateTime startDate,  DateTime? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String title,  String description,  DateTime startDate,  DateTime? endDate,  String companyName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Work() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.startDate,_that.endDate);case _:
+return $default(_that.id,_that.title,_that.description,_that.startDate,_that.endDate,_that.companyName);case _:
   return orElse();
 
 }
@@ -175,10 +176,10 @@ return $default(_that.id,_that.title,_that.description,_that.startDate,_that.end
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String title,  String description,  DateTime startDate,  DateTime? endDate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String title,  String description,  DateTime startDate,  DateTime? endDate,  String companyName)  $default,) {final _that = this;
 switch (_that) {
 case _Work():
-return $default(_that.id,_that.title,_that.description,_that.startDate,_that.endDate);case _:
+return $default(_that.id,_that.title,_that.description,_that.startDate,_that.endDate,_that.companyName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +196,10 @@ return $default(_that.id,_that.title,_that.description,_that.startDate,_that.end
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String title,  String description,  DateTime startDate,  DateTime? endDate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String title,  String description,  DateTime startDate,  DateTime? endDate,  String companyName)?  $default,) {final _that = this;
 switch (_that) {
 case _Work() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.startDate,_that.endDate);case _:
+return $default(_that.id,_that.title,_that.description,_that.startDate,_that.endDate,_that.companyName);case _:
   return null;
 
 }
@@ -210,7 +211,7 @@ return $default(_that.id,_that.title,_that.description,_that.startDate,_that.end
 
 
 class _Work implements Work {
-  const _Work({this.id, required this.title, required this.description, required this.startDate, required this.endDate});
+  const _Work({this.id, required this.title, required this.description, required this.startDate, this.endDate, required this.companyName});
   
 
 @override final  String? id;
@@ -218,6 +219,7 @@ class _Work implements Work {
 @override final  String description;
 @override final  DateTime startDate;
 @override final  DateTime? endDate;
+@override final  String companyName;
 
 /// Create a copy of Work
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +231,16 @@ _$WorkCopyWith<_Work> get copyWith => __$WorkCopyWithImpl<_Work>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Work&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Work&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.companyName, companyName) || other.companyName == companyName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,startDate,endDate);
+int get hashCode => Object.hash(runtimeType,id,title,description,startDate,endDate,companyName);
 
 @override
 String toString() {
-  return 'Work(id: $id, title: $title, description: $description, startDate: $startDate, endDate: $endDate)';
+  return 'Work(id: $id, title: $title, description: $description, startDate: $startDate, endDate: $endDate, companyName: $companyName)';
 }
 
 
@@ -249,7 +251,7 @@ abstract mixin class _$WorkCopyWith<$Res> implements $WorkCopyWith<$Res> {
   factory _$WorkCopyWith(_Work value, $Res Function(_Work) _then) = __$WorkCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String title, String description, DateTime startDate, DateTime? endDate
+ String? id, String title, String description, DateTime startDate, DateTime? endDate, String companyName
 });
 
 
@@ -266,14 +268,15 @@ class __$WorkCopyWithImpl<$Res>
 
 /// Create a copy of Work
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? title = null,Object? description = null,Object? startDate = null,Object? endDate = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? title = null,Object? description = null,Object? startDate = null,Object? endDate = freezed,Object? companyName = null,}) {
   return _then(_Work(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,companyName: null == companyName ? _self.companyName : companyName // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
