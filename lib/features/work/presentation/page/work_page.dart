@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
-import 'package:my_portfolio/feautres/work/providers/works_provider.dart';
+import 'package:my_portfolio/features/work/providers/works_provider.dart';
 
 final _dateFormat = DateFormat('dd-MMMM-YYYY');
 
