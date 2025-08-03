@@ -23,8 +23,8 @@ class _AnimatedShaderBackgroundState extends State<AnimatedShaderBackground>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 20))
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 40))
+      ..repeat(reverse: true);
     _loadShader();
   }
 
@@ -36,23 +36,18 @@ class _AnimatedShaderBackgroundState extends State<AnimatedShaderBackground>
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (_shader == null) {
-      return Container(color: widget.backgroundColor);
+      return ColoredBox(color: widget.backgroundColor);
     }
+
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
         return CustomPaint(
           painter: _ShaderPainter(
             shader: _shader!,
-            time: _controller.value * 20, // Multiplicamos para que el tiempo avance
+            time: _controller.value * 60, // Multiplicamos para que el tiempo avance
             backgroundColor: widget.backgroundColor,
             shapesColor: widget.shapesColor,
           ),
@@ -60,6 +55,12 @@ class _AnimatedShaderBackgroundState extends State<AnimatedShaderBackground>
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
