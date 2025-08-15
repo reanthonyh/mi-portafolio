@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/core/constants/assets.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
+import 'package:my_portfolio/core/navigation/navigation_service.dart';
 
 import '../providers/root_state.dart';
 
@@ -30,25 +30,25 @@ class CustomSideBar extends ConsumerWidget {
           spacing: 5,
           children: [
             GestureDetector(
-              onTap: () => context.go('/'),
+              onTap: () => ref.read(navigationServiceProvider).navigateToHome(),
               child: SizedBox(
                 width: 125,
                 child: Image.asset(ImageAssets.logo, fit: BoxFit.cover),
               ),
             ),
             GestureDetector(
-              onTap: () => context.go('/aboutMe'),
+              onTap: () => ref.read(navigationServiceProvider).navigateToAboutMe(),
               child: Text(
                 'About Me',
                 style: rootState != 1 ? normalStyle : selectedStyle,
               ),
             ),
             GestureDetector(
-              onTap: () => context.go('/works'),
+              onTap: () => ref.read(navigationServiceProvider).navigateToWorks(),
               child: Text('Works', style: rootState != 2 ? normalStyle : selectedStyle),
             ),
             GestureDetector(
-              onTap: () => context.go('/contact'),
+              onTap: () => ref.read(navigationServiceProvider).navigateToContact(),
               child: Text('Contact', style: rootState != 3 ? normalStyle : selectedStyle),
             ),
           ],

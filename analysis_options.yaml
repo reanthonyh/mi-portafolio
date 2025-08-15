@@ -20,4 +20,5 @@ linter:
     prefer_asserts_with_message: true
     prefer_single_quotes: true
     camel_case_types: true
+    avoid_print: false
     prefer_const_constructors: true

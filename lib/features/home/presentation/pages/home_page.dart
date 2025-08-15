@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
-import 'package:my_portfolio/features/root/presentation/providers/root_state.dart';
+import 'package:my_portfolio/core/navigation/navigation_service.dart';
 
 final class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -39,11 +38,7 @@ final class HomePage extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 100),
           child: IconButton(
-            onPressed: () {
-              ref.watch(rootStateProvider.notifier).changeIndex(1);
-
-              context.go('/aboutMe');
-            },
+            onPressed: () => ref.read(navigationServiceProvider).navigateToAboutMe(),
             icon: const Icon(Icons.arrow_downward_rounded),
             iconSize: 25,
             constraints: const BoxConstraints.expand(height: 50),

@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:my_portfolio/core/constants/assets.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
+import 'package:my_portfolio/core/navigation/navigation_service.dart';
+import 'package:my_portfolio/features/root/presentation/providers/root_state.dart';
 import 'package:my_portfolio/features/work/providers/works_provider.dart';
+
+part '../widgets/images_presentation.dart';
 
 final _dateFormat = DateFormat('dd-MMMM-YYYY');
 
@@ -46,15 +51,15 @@ final class WorkPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: IconButton(
-              onPressed: () => context.go('/aboutMe'),
+              onPressed: () => ref.read(navigationServiceProvider).navigateToAboutMe(),
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
               iconSize: 25,
-              constraints: const BoxConstraints.expand(width: 80),
+              constraints: const BoxConstraints.expand(width: 60),
             ),
           ),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(work.title, style: textTheme.titleLarge),
@@ -64,6 +69,17 @@ final class WorkPage extends ConsumerWidget {
                   style: textTheme.labelLarge,
                 ),
                 Text(work.description, style: textTheme.bodyMedium),
+                const Flexible(
+                  flex: 2,
+                  child: _WorkImagesPresentation(
+                    imagesPath: [
+                      ImageAssets.logo,
+                      ImageAssets.logo,
+                      ImageAssets.logo,
+                      ImageAssets.logo,
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

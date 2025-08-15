@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_portfolio/core/navigation/navigation_service.dart';
 import 'package:my_portfolio/features/about_me/presentation/pages/about_me_page.dart';
 import 'package:my_portfolio/features/home/presentation/pages/home_page.dart';
 import 'package:my_portfolio/features/root/presentation/pages/root_page.dart';
@@ -12,9 +12,9 @@ part 'main_router.g.dart';
 @riverpod
 GoRouter mainRouter(Ref ref) {
   return GoRouter(
+    navigatorKey: ref.read(navigatorKeyProvider),
     routes: [
       ShellRoute(
-        navigatorKey: GlobalKey<NavigatorState>(),
         pageBuilder: RootPage.goPageBuilder,
         routes: [
           GoRoute(path: '/', builder: (context, state) => const HomePage()),
