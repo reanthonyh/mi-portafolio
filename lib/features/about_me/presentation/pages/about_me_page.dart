@@ -12,37 +12,37 @@ final class AboutMePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: Column(
-        spacing: 8,
-        children: [
-          Flexible(
-            flex: 3,
-            child: Padding(
-              padding: largePadding,
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Column(
-                      spacing: 12,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [Text("Sobre Mi"), Text("Sobre mi contenido")],
-                    ),
+    return Column(
+      spacing: 8,
+      children: [
+        Flexible(
+          flex: 3,
+          child: Padding(
+            padding: largePadding,
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Column(
+                    spacing: 12,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [Text("Sobre Mi"), Text("Sobre mi contenido")],
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: FilledButton.tonal(
-                      onPressed: () {},
-                      child: const Text("Ver mas ..."),
-                    ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FilledButton.tonal(
+                    onPressed: () {
+                      // TODO: Complete the Show more of me
+                    },
+                    child: const Text("Ver mas ..."),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          const Flexible(flex: 4, child: _WorkCards()),
-        ],
-      ),
+        ),
+        const Flexible(flex: 4, child: _WorkCards()),
+      ],
     );
   }
 }

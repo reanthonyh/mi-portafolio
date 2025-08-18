@@ -9,14 +9,19 @@ class _WorkImagesPresentation extends StatefulWidget {
   State<_WorkImagesPresentation> createState() => _WorkImagesPresentationState();
 }
 
-final class _WorkImagesPresentationState extends State<_WorkImagesPresentation> {
+final class _WorkImagesPresentationState extends State<_WorkImagesPresentation>
+    with WidgetsBindingObserver {
   late final carouselController = CarouselController();
   late List<SizedBox> images;
+  Timer? _timer;
+  int _currentIndex = 0;
 
   static const _imagesWidth = 400.0;
 
   @override
   void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
     images = widget.imagesPath
         .map(
           (source) => SizedBox(
@@ -26,7 +31,7 @@ final class _WorkImagesPresentationState extends State<_WorkImagesPresentation> 
           ),
         )
         .toList();
-    super.initState();
+    _startAutoSlide();
   }
 
   @override
@@ -42,8 +47,32 @@ final class _WorkImagesPresentationState extends State<_WorkImagesPresentation> 
     );
   }
 
+  void _startAutoSlide() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      _currentIndex = (_currentIndex + 1) % widget.imagesPath.length;
+      carouselController.animateTo(
+        _currentIndex.toDouble(),
+        duration: Durations.medium1,
+        curve: Curves.linear,
+      );
+    });
+  }
+
+  void _stopAutoSlide() => _timer?.cancel();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+      _stopAutoSlide();
+    } else if (state == AppLifecycleState.resumed) {
+      _startAutoSlide();
+    }
+  }
+
   @override
   void dispose() {
+    _stopAutoSlide();
+    WidgetsBinding.instance.removeObserver(this);
     carouselController.dispose();
     super.dispose();
   }

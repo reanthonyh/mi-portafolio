@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,18 +59,32 @@ final class WorkPage extends ConsumerWidget {
           ),
           Expanded(
             child: Column(
+              spacing: 10,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(work.title, style: textTheme.titleLarge),
-                Text(work.companyName, style: textTheme.bodyLarge),
-                Text(
-                  '${work.startDate} - ${_dateFormat.format(work.endDate ?? DateTime.now())}',
-                  style: textTheme.labelLarge,
+                Text(work.title, style: textTheme.displayMedium),
+                Flexible(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      spacing: 6,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(work.companyName, style: textTheme.bodyLarge),
+                        Text(
+                          '${work.startDate} - ${_dateFormat.format(work.endDate ?? DateTime.now())}',
+                          style: textTheme.labelLarge,
+                        ),
+                        Text(work.description, style: textTheme.bodyMedium),
+                      ],
+                    ),
+                  ),
                 ),
-                Text(work.description, style: textTheme.bodyMedium),
                 const Flexible(
-                  flex: 2,
+                  flex: 3,
                   child: _WorkImagesPresentation(
                     imagesPath: [
                       ImageAssets.logo,
