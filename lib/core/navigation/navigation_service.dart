@@ -7,14 +7,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'navigation_service.g.dart';
 
 @riverpod
-NavigationService navigationService(Ref ref) {
-  return NavigationServiceImpl(ref);
-}
+NavigationService navigationService(Ref ref) => NavigationServiceImpl(ref);
 
 @Riverpod(keepAlive: true)
-GlobalKey<NavigatorState> navigatorKey(Ref ref) {
-  return GlobalKey<NavigatorState>();
-}
+GlobalKey<NavigatorState> navigatorKey(Ref ref) => GlobalKey<NavigatorState>();
 
 abstract interface class NavigationService {
   void navigateToAboutMe();
@@ -45,10 +41,8 @@ final class NavigationServiceImpl implements NavigationService {
   void navigateToWorks() => _navigate('/works', 2);
 
   void _navigate(String path, int index) {
-    print('to $path ($index)');
     final router = _ref.read(mainRouterProvider);
     router.go(path);
     _ref.read(rootStateProvider.notifier).changeIndex(index);
-    print('Navigated to $path ($index)');
   }
 }
