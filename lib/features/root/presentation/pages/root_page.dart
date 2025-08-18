@@ -16,13 +16,15 @@ final class RootPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = ColorScheme.of(context);
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const AnimatedShaderBackground(
-            backgroundColor: Colors.black26,
-            shapesColor: Colors.white,
+          AnimatedShaderBackground(
+            backgroundColor: colorScheme.primary,
+            shapesColor: colorScheme.tertiary,
           ),
           Row(
             children: [
