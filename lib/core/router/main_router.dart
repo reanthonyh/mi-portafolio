@@ -28,6 +28,7 @@ GoRouter mainRouter(Ref ref) {
               ),
             ],
           ),
+          GoRoute(path: '/works', builder: (context, state) => const WorkPage()),
         ],
       ),
     ],
