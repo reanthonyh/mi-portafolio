@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_portfolio/core/constants/assets.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
 
 final class ContactPage extends StatefulWidget {
@@ -80,13 +82,12 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                 ),
                 const Divider(),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(Icons.one_k, size: 30),
-                    Icon(Icons.one_k, size: 30),
-                    Icon(Icons.one_k, size: 30),
-                    Icon(Icons.one_k, size: 30),
+                    SvgPicture.asset(SVGAssets.linkedin),
+                    SvgPicture.asset(SVGAssets.github),
+                    SvgPicture.asset(SVGAssets.gitlab),
                   ],
                 ),
               ],
