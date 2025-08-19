@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_portfolio/core/constants/assets.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
 
+part '../widgets/logo_icon.dart';
+
 final class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
 
@@ -82,12 +84,15 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                 ),
                 const Divider(),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SvgPicture.asset(SVGAssets.linkedin),
-                    SvgPicture.asset(SVGAssets.github),
-                    SvgPicture.asset(SVGAssets.gitlab),
+                    _LogoIcon(asset: SVGAssets.linkedin),
+                    _LogoIcon(
+                      asset: SVGAssets.github,
+                      link: "https://github.com/reanthonyh",
+                    ),
+                    _LogoIcon(asset: SVGAssets.gitlab),
                   ],
                 ),
               ],

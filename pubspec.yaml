@@ -35,6 +35,7 @@ flutter:
 
   assets:
     - assets/logo.png
+    - assets/svg/
 
   shaders:
     - shaders/minimal_background.frag
