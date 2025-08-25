@@ -41,19 +41,21 @@ class _AnimatedShaderBackgroundState extends State<AnimatedShaderBackground>
       return ColoredBox(color: widget.backgroundColor);
     }
 
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: _ShaderPainter(
-            shader: _shader!,
-            time: _controller.value * 60, // Multiplicamos para que el tiempo avance
-            backgroundColor: widget.backgroundColor,
-            shapesColor: widget.shapesColor,
-          ),
-          child: const SizedBox(),
-        );
-      },
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return CustomPaint(
+            painter: _ShaderPainter(
+              shader: _shader!,
+              time: _controller.value * 60, // Multiplicamos para que el tiempo avance
+              backgroundColor: widget.backgroundColor,
+              shapesColor: widget.shapesColor,
+            ),
+            child: const SizedBox(),
+          );
+        },
+      ),
     );
   }
 

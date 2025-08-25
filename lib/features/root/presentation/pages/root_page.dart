@@ -6,13 +6,9 @@ import 'package:my_portfolio/core/widgets/animated_background.dart';
 import '../widgets/custom_side_bar.dart';
 
 final class RootPage extends ConsumerWidget {
-  const RootPage(this.child, {super.key});
+  const RootPage(this.navigationShell, {super.key});
 
-  final Widget child;
-
-  static Page goPageBuilder(BuildContext context, GoRouterState state, Widget child) {
-    return MaterialPage(child: RootPage(child));
-  }
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +28,7 @@ final class RootPage extends ConsumerWidget {
               Expanded(
                 child: ColoredBox(
                   color: ColorScheme.of(context).surface.withAlpha(180),
-                  child: child,
+                  child: navigationShell,
                 ),
               ),
             ],

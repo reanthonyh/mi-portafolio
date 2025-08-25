@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/core/router/main_router.dart';
-import 'package:my_portfolio/features/root/presentation/providers/root_state.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,23 +25,32 @@ final class NavigationServiceImpl implements NavigationService {
   NavigationServiceImpl(this._ref);
 
   @override
-  void navigateToAboutMe() => _navigate('/aboutMe', 1);
-
-  @override
-  void navigateToContact() => _navigate('/contact', 3);
-
-  @override
-  void navigateToHome() => _navigate('/', 0);
-
-  @override
-  void navigateToWork(String workId) => _navigate('/aboutMe/$workId', 1);
-
-  @override
-  void navigateToWorks() => _navigate('/works', 2);
-
-  void _navigate(String path, int index) {
+  void navigateToAboutMe() {
     final router = _ref.read(mainRouterProvider);
-    router.go(path);
-    _ref.read(rootStateProvider.notifier).changeIndex(index);
+    router.go('/aboutMe');
+  }
+
+  @override
+  void navigateToContact() {
+    final router = _ref.read(mainRouterProvider);
+    router.go('/contact');
+  }
+
+  @override
+  void navigateToHome() {
+    final router = _ref.read(mainRouterProvider);
+    router.go('/');
+  }
+
+  @override
+  void navigateToWork(String workId) {
+    final router = _ref.read(mainRouterProvider);
+    router.go('/aboutMe/$workId');
+  }
+
+  @override
+  void navigateToWorks() {
+    final router = _ref.read(mainRouterProvider);
+    router.go('/works');
   }
 }

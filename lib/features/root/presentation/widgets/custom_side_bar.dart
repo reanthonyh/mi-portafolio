@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/core/constants/assets.dart';
 import 'package:my_portfolio/core/constants/dimensions.dart';
 import 'package:my_portfolio/core/navigation/navigation_service.dart';
-
-import '../providers/root_state.dart';
 
 class CustomSideBar extends ConsumerWidget {
   const CustomSideBar({super.key});
@@ -13,9 +12,13 @@ class CustomSideBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = ColorScheme.of(context);
     final textStyle = TextTheme.of(context);
-
-    final rootState = ref.watch(rootStateProvider);
+    
+    // Get current route from go_router
+    final currentRoute = GoRouterState.of(context).fullPath;
     final navService = ref.read(navigationServiceProvider);
+    
+    // Try to get the StatefulNavigationShell if available
+    final navigationShell = context.findAncestorWidgetOfExactType<StatefulNavigationShell>();
 
     final normalStyle = textStyle.titleLarge?.copyWith(
       color: colorScheme.onSecondaryContainer,
@@ -33,26 +36,56 @@ class CustomSideBar extends ConsumerWidget {
           spacing: 5,
           children: [
             _NavItem(
-              onTap: navService.navigateToHome,
+              onTap: () {
+                if (navigationShell != null) {
+                  navigationShell.goBranch(0);
+                } else {
+                  navService.navigateToHome();
+                }
+              },
               child: SizedBox(
                 width: 125,
                 child: Image.asset(ImageAssets.logo, fit: BoxFit.cover),
               ),
             ),
             _NavItem(
-              onTap: navService.navigateToAboutMe,
+              onTap: () {
+                if (navigationShell != null) {
+                  navigationShell.goBranch(1);
+                } else {
+                  navService.navigateToAboutMe();
+                }
+              },
               child: Text(
                 'About Me',
-                style: rootState == 1 ? selectedStyle : normalStyle,
+                style: currentRoute?.startsWith('/aboutMe') == true ? selectedStyle : normalStyle,
               ),
             ),
             _NavItem(
-              onTap: navService.navigateToWorks,
-              child: Text('Works', style: rootState == 2 ? selectedStyle : normalStyle),
+              onTap: () {
+                if (navigationShell != null) {
+                  navigationShell.goBranch(2);
+                } else {
+                  navService.navigateToWorks();
+                }
+              },
+              child: Text(
+                'Works', 
+                style: currentRoute == '/works' ? selectedStyle : normalStyle,
+              ),
             ),
             _NavItem(
-              onTap: navService.navigateToContact,
-              child: Text('Contact', style: rootState == 3 ? selectedStyle : normalStyle),
+              onTap: () {
+                if (navigationShell != null) {
+                  navigationShell.goBranch(3);
+                } else {
+                  navService.navigateToContact();
+                }
+              },
+              child: Text(
+                'Contact', 
+                style: currentRoute == '/contact' ? selectedStyle : normalStyle,
+              ),
             ),
           ],
         ),

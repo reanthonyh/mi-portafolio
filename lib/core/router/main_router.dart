@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/core/navigation/navigation_service.dart';
@@ -10,27 +11,91 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'main_router.g.dart';
 
+/// A custom page that removes default page transitions for better performance
+class NoTransitionPage<T> extends Page<T> {
+  const NoTransitionPage({
+    required this.child,
+    super.key,
+    super.name,
+    super.arguments,
+    super.restorationId,
+  });
+
+  final Widget child;
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    return PageRouteBuilder<T>(
+      settings: this,
+      pageBuilder: (context, animation, secondaryAnimation) => child,
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+    );
+  }
+}
+
 @riverpod
 GoRouter mainRouter(Ref ref) {
   return GoRouter(
     navigatorKey: ref.read(navigatorKeyProvider),
     routes: [
-      ShellRoute(
-        pageBuilder: RootPage.goPageBuilder,
-        routes: [
-          GoRoute(path: '/', builder: (context, state) => const HomePage()),
-          GoRoute(
-            path: '/aboutMe',
-            builder: (context, state) => const AboutMePage(),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return RootPage(navigationShell);
+        },
+        branches: [
+          // Home branch (index 0)
+          StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/:id',
-                builder: (context, state) => WorkPage(workId: state.pathParameters['id']),
+                path: '/',
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: HomePage(),
+                ),
               ),
             ],
           ),
-          GoRoute(path: '/works', builder: (context, state) => const WorkPage()),
-          GoRoute(path: '/contact', builder: (context, state) => const ContactPage()),
+          // About Me branch (index 1)
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/aboutMe',
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: AboutMePage(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: '/:id',
+                    pageBuilder: (context, state) => NoTransitionPage(
+                      child: WorkPage(workId: state.pathParameters['id']),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          // Works branch (index 2)
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/works',
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: WorkPage(),
+                ),
+              ),
+            ],
+          ),
+          // Contact branch (index 3)
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/contact',
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: ContactPage(),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     ],
