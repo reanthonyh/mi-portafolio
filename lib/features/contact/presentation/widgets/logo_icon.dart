@@ -8,13 +8,28 @@ final class _LogoIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const iconSize = 100.0;
+    const iconSize = 60.0;
 
-    debugPrint("LogoButton => $link");
-
-    return SizedBox.square(
+    final iconWidget = SizedBox.square(
       dimension: iconSize,
       child: SvgPicture.asset(asset, fit: BoxFit.cover),
     );
+
+    return link != null
+        ? GestureDetector(
+            onTap: () => _goToURL(link!),
+            child: MouseRegion(cursor: SystemMouseCursors.click, child: iconWidget),
+          )
+        : iconWidget;
+  }
+
+  Future<void> _goToURL(String link) async {
+    final uri = Uri.parse(link);
+
+    try {
+      await launchUrl(uri);
+    } catch (error) {
+      print('Error lunching on IconLink: $link');
+    }
   }
 }

@@ -14,12 +14,15 @@ class CustomSideBar extends ConsumerWidget {
     final colorScheme = ColorScheme.of(context);
     final textStyle = TextTheme.of(context);
 
+    final rootState = ref.watch(rootStateProvider);
+    final navService = ref.read(navigationServiceProvider);
+
     final normalStyle = textStyle.titleLarge?.copyWith(
       color: colorScheme.onSecondaryContainer,
     );
-    final selectedStyle = textStyle.titleLarge?.copyWith(color: colorScheme.primary);
-
-    final rootState = ref.watch(rootStateProvider);
+    final selectedStyle = textStyle.titleLarge?.copyWith(
+      color: colorScheme.surfaceContainerHighest,
+    );
 
     return SizedBox.fromSize(
       size: normalNavBarSize,
@@ -29,29 +32,66 @@ class CustomSideBar extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           spacing: 5,
           children: [
-            GestureDetector(
-              onTap: () => ref.read(navigationServiceProvider).navigateToHome(),
+            _NavItem(
+              onTap: navService.navigateToHome,
               child: SizedBox(
                 width: 125,
                 child: Image.asset(ImageAssets.logo, fit: BoxFit.cover),
               ),
             ),
-            GestureDetector(
-              onTap: () => ref.read(navigationServiceProvider).navigateToAboutMe(),
+            _NavItem(
+              onTap: navService.navigateToAboutMe,
               child: Text(
                 'About Me',
-                style: rootState != 1 ? normalStyle : selectedStyle,
+                style: rootState == 1 ? selectedStyle : normalStyle,
               ),
             ),
-            GestureDetector(
-              onTap: () => ref.read(navigationServiceProvider).navigateToWorks(),
-              child: Text('Works', style: rootState != 2 ? normalStyle : selectedStyle),
+            _NavItem(
+              onTap: navService.navigateToWorks,
+              child: Text('Works', style: rootState == 2 ? selectedStyle : normalStyle),
             ),
-            GestureDetector(
-              onTap: () => ref.read(navigationServiceProvider).navigateToContact(),
-              child: Text('Contact', style: rootState != 3 ? normalStyle : selectedStyle),
+            _NavItem(
+              onTap: navService.navigateToContact,
+              child: Text('Contact', style: rootState == 3 ? selectedStyle : normalStyle),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatefulWidget {
+  const _NavItem({required this.onTap, required this.child});
+
+  final VoidCallback onTap;
+  final Widget child;
+
+  @override
+  State<_NavItem> createState() => _NavItemState();
+}
+
+class _NavItemState extends State<_NavItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: _isHovered
+                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: widget.child,
         ),
       ),
     );
