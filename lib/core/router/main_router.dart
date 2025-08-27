@@ -11,7 +11,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'main_router.g.dart';
 
-/// A custom page that removes default page transitions for better performance
 class NoTransitionPage<T> extends Page<T> {
   const NoTransitionPage({
     required this.child,
@@ -25,11 +24,14 @@ class NoTransitionPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
+    const lowDuration = Duration(milliseconds: 400);
+
     return PageRouteBuilder<T>(
+      transitionDuration: lowDuration,
+      reverseTransitionDuration: lowDuration,
       settings: this,
-      pageBuilder: (context, animation, secondaryAnimation) => child,
-      transitionDuration: Duration.zero,
-      reverseTransitionDuration: Duration.zero,
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          FadeTransition(opacity: animation, child: child),
     );
   }
 }
@@ -40,18 +42,14 @@ GoRouter mainRouter(Ref ref) {
     navigatorKey: ref.read(navigatorKeyProvider),
     routes: [
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return RootPage(navigationShell);
-        },
+        builder: (context, state, navigationShell) => RootPage(navigationShell),
         branches: [
-          // Home branch (index 0)
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: HomePage(),
-                ),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: HomePage()),
               ),
             ],
           ),
@@ -60,9 +58,8 @@ GoRouter mainRouter(Ref ref) {
             routes: [
               GoRoute(
                 path: '/aboutMe',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: AboutMePage(),
-                ),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: AboutMePage()),
                 routes: [
                   GoRoute(
                     path: '/:id',
@@ -79,9 +76,8 @@ GoRouter mainRouter(Ref ref) {
             routes: [
               GoRoute(
                 path: '/works',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: WorkPage(),
-                ),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: WorkPage()),
               ),
             ],
           ),
@@ -90,9 +86,8 @@ GoRouter mainRouter(Ref ref) {
             routes: [
               GoRoute(
                 path: '/contact',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: ContactPage(),
-                ),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ContactPage()),
               ),
             ],
           ),

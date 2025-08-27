@@ -89,10 +89,13 @@ class _ContactPageState extends State<ContactPage> {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _LogoIcon(asset: SVGAssets.linkedin),
+                    _LogoIcon(
+                      asset: SVGAssets.linkedin,
+                      link: 'https://linkedin.com/in/anthony-herflo/',
+                    ),
                     _LogoIcon(
                       asset: SVGAssets.github,
-                      link: "https://github.com/reanthonyh",
+                      link: 'https://github.com/reanthonyh',
                     ),
                     _LogoIcon(asset: SVGAssets.gitlab),
                   ],

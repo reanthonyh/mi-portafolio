@@ -12,13 +12,14 @@ class CustomSideBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = ColorScheme.of(context);
     final textStyle = TextTheme.of(context);
-    
+
     // Get current route from go_router
     final currentRoute = GoRouterState.of(context).fullPath;
     final navService = ref.read(navigationServiceProvider);
-    
+
     // Try to get the StatefulNavigationShell if available
-    final navigationShell = context.findAncestorWidgetOfExactType<StatefulNavigationShell>();
+    final navigationShell = context
+        .findAncestorWidgetOfExactType<StatefulNavigationShell>();
 
     final normalStyle = textStyle.titleLarge?.copyWith(
       color: colorScheme.onSecondaryContainer,
@@ -58,7 +59,9 @@ class CustomSideBar extends ConsumerWidget {
               },
               child: Text(
                 'About Me',
-                style: currentRoute?.startsWith('/aboutMe') == true ? selectedStyle : normalStyle,
+                style: currentRoute?.startsWith('/aboutMe') == true
+                    ? selectedStyle
+                    : normalStyle,
               ),
             ),
             _NavItem(
@@ -70,7 +73,7 @@ class CustomSideBar extends ConsumerWidget {
                 }
               },
               child: Text(
-                'Works', 
+                'Works',
                 style: currentRoute == '/works' ? selectedStyle : normalStyle,
               ),
             ),
@@ -83,7 +86,7 @@ class CustomSideBar extends ConsumerWidget {
                 }
               },
               child: Text(
-                'Contact', 
+                'Contact',
                 style: currentRoute == '/contact' ? selectedStyle : normalStyle,
               ),
             ),

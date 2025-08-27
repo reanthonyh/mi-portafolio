@@ -85,14 +85,13 @@ class _ShaderPainter extends CustomPainter {
     shader.setFloat(1, size.height);
     shader.setFloat(2, time);
 
-    // Convertir colores a un formato que el shader entienda (vec3 de 0.0 a 1.0)
-    shader.setFloat(3, backgroundColor.red / 255.0);
-    shader.setFloat(4, backgroundColor.green / 255.0);
-    shader.setFloat(5, backgroundColor.blue / 255.0);
+    shader.setFloat(3, backgroundColor.r);
+    shader.setFloat(4, backgroundColor.g);
+    shader.setFloat(5, backgroundColor.b);
 
-    shader.setFloat(6, shapesColor.red / 255.0);
-    shader.setFloat(7, shapesColor.green / 255.0);
-    shader.setFloat(8, shapesColor.blue / 255.0);
+    shader.setFloat(6, shapesColor.r);
+    shader.setFloat(7, shapesColor.g);
+    shader.setFloat(8, shapesColor.b);
 
     final paint = Paint()..shader = shader;
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
